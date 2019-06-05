@@ -60,7 +60,7 @@ export default {
                 appTitle: 'Inicio',
                 drawer: false,
                 items: [
-                    { title: 'Profile' },
+                    { title: 'Profile', route: '/profile' },
                     { title: 'Sign In', route: '/signin'  },
                     { title: 'signup', route: '/signup' },
                     { title: 'Somos', route: '/somos' },

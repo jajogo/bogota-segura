@@ -26,13 +26,19 @@ let router = new Router({
          {
              path: '/signin',
              name: 'signin',
-             component: Signin
+             component: Signin,
+             meta:{
+                auth: false
+            }
          },
 
          {
              path: '/signup',
              name: 'signup',
-             component: Signup
+             component: Signup,
+             meta:{
+                auth: false
+            }
          },
 
          {
@@ -80,7 +86,12 @@ router.beforeEach((to, from, next)=>{
         next({
             path:'/signin'
         })
-    }else{
+    }else if(!to.meta.auth && store.state.currentUser){
+        next({
+            path:'/profile'
+        })
+    }
+    else{
         next()
     }
 })

@@ -1,9 +1,9 @@
 <template>
     <v-container fluid>
         <v-layout>
-            <h1>Join Page</h1>
+            <h1>Sign In</h1>
             <form @submit.prevent="signIn">
-                <p>Crea tu cuenta ahora mismo!</p>
+                <p>Inicia Sesión!</p>
                 <div class="field">
                     <input type="email" v-model="email" placeholder="Correo" class="formulario"><br>
                 </div>
