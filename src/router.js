@@ -86,10 +86,6 @@ router.beforeEach((to, from, next)=>{
         next({
             path:'/signin'
         })
-    }else if(!to.meta.auth && store.state.currentUser){
-        next({
-            path:'/profile'
-        })
     }
     else{
         next()

@@ -37,15 +37,15 @@
     }
 }
 
-database.signOut = async () =>{
-    try{
-      await firebase.auth().signOut()
+  database.signOut = async () =>{
+      try{
+        await firebase.auth().signOut()
 
-      store.commit('setCurrentUser', null)
+        store.commit('setCurrentUser', null)
 
-      return true
-    }catch(error){
-        return error
-    }
-}
+        return true
+      }catch(error){
+          return error
+      }
+  }
   export default database
