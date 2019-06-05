@@ -2,7 +2,7 @@
     <v-container fluid>
         <v-layout>
             <h1>Join Page</h1>
-            <form @submit.prevent="signIn">
+            <form @submit.prevent="signUp">
                 <p>Crea tu cuenta ahora mismo!</p>
                 <div class="field">
                     <input type="email" v-model="email" placeholder="Correo" class="formulario"><br>
@@ -11,7 +11,7 @@
                     <input type="password" v-model="password" placeholder="Contraseña" class="formulario"><br>
                 </div>
 
-                <button class="button-registro" >Iniciar Sesion</button>
+                <button class="button-registro" >Registrarse</button>
             </form>
             <div class="mensaje-error" v-if="error">
                 <div class="message-body">{{error}}</div>
@@ -22,7 +22,7 @@
 <script>
 import database from '../services/database'
 export default {
-    name: 'signin',
+    name: 'signup',
     data (){
         return{
             email: '',
@@ -31,13 +31,13 @@ export default {
         }
     },
     methods: {
-        async signIn (){
-            let result = await database.signIn(this.email, this.password)
+        async signUp (){
+            let result = await database.signUp(this.email, this.password)
             if(result.message){
                 this.error = result.message
             }else{
-                alert('Bienvenido!')
-                this.$router.push('/profile')
+                alert('El usuario ha sido creado')
+                this.$router.push('/signin')
             }
         }
     }

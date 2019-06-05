@@ -27,28 +27,51 @@
               <v-divider inset vertical class="white mx-3"></v-divider>
             <v-btn flat class="hidden-sm-and-down" to="/contacto">CONTACTANOS</v-btn>
               <v-divider inset vertical class="white mx-3"></v-divider>
-            <v-btn flat class="hidden-sm-and-down" to="/sign-in">Registrarse</v-btn>
-            <v-btn color="primary" class="hidden-sm-and-down" to="/join">Ingresar</v-btn>
+            
+            <template v-if="!currentUser">
+                <v-btn flat class="hidden-sm-and-down" to="/signup">Registrarse</v-btn> 
+                <v-btn color="primary" class="hidden-sm-and-down" to="/signin">Ingresar</v-btn>
+            </template>
+
+            <template v-else>
+                <v-btn color="primary" class="hidden-sm-and-down" to="/profile">Perfil</v-btn>
+                <v-btn color="alert" class="hidden-sm-and-down" @click="signOut">Salir</v-btn>
+            </template>
         </v-toolbar>
     </span>
 </template>
 <script>
+import database from '../services/database'
 export default {
     name: 'AppNavigation',
-    data() {return {
-                        appTitle: 'Inicio',
-                        drawer: false,
-                        items: [
-                            { title: 'Profile' },
-                            { title: 'Sign In', route: '/sign-in'  },
-                            { title: 'Join', route: '/join' },
-                            { title: 'Somos', route: '/somos' },
-                            { title: 'Consejos', route: '/consejos' },
-                            { title: 'Mapa', route: '/mapa' },
-                            { title: 'Contacto', route: '/contacto' }
-                        ]
-                    };}
-};
+    computed:{
+        currentUser(){
+            return this.$store.state.currentUser
+        }
+    },
+    methods:{
+        async signOut(){
+            await database.signOut()
+            this.$router.push('/signin')
+        }
+    },
+    data() {
+            return {
+                appTitle: 'Inicio',
+                drawer: false,
+                items: [
+                    { title: 'Profile' },
+                    { title: 'Sign In', route: '/signin'  },
+                    { title: 'signup', route: '/signup' },
+                    { title: 'Somos', route: '/somos' },
+                    { title: 'Consejos', route: '/consejos' },
+                    { title: 'Mapa', route: '/mapa' },
+                    { title: 'Contacto', route: '/contacto' }
+                ]
+            };        
+        }
+    };
+
 
 
 

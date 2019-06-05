@@ -1,12 +1,15 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Home from './views/Home.vue';
+import Signup from './views/Signup.vue';
+import Signin from './views/Signin.vue';
+import Profile from './views/Profile.vue';
+import store from './store';
 
 Vue.use(Router);
 
-export default new Router({
+let router = new Router({
     mode: 'history',
-    base: process.env.BASE_URL,
     routes: [
          {
              path: '/',
@@ -21,15 +24,29 @@ export default new Router({
          },
 
          {
-             path: '/sign-in',
+             path: '/signin',
              name: 'signin',
-             component: () => import('./views/Signin.vue')
+             component: Signin
          },
 
          {
-             path: '/join',
-             name: 'join',
-             component: () => import('./views/Join.vue')
+             path: '/signup',
+             name: 'signup',
+             component: Signup
+         },
+
+         {
+            path: '/profile',
+            name: 'profile',
+            component: Profile,
+            meta:{
+                auth: true
+            }
+        },
+
+         {
+             path: '*',
+             redirect: '/',
          },
 
          {
@@ -57,3 +74,15 @@ export default new Router({
          }
      ]
 });
+
+router.beforeEach((to, from, next)=>{
+    if(to.meta.auth && !store.state.currentUser){
+        next({
+            path:'/signin'
+        })
+    }else{
+        next()
+    }
+})
+
+export default router;
